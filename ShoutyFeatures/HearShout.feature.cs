@@ -32,17 +32,8 @@ namespace ShoutyFeatures
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Hear shout", @"
-In order to send location-sensitive messages to people nearby
-As a shouter
-I want to broadcast messages to people near me
-
-Rules:
-  - broadcast to all users
-  - don't worry about proximity yet
-
-Todo:
-  - only shout to people within a certain distance", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Hear shout", "\nIn order to send location-sensitive messages to people nearby\nAs a shouter\nI wan" +
+                    "t to broadcast messages to people near me\n\nRules:\n  - broadcast to all users", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,11 +67,15 @@ Todo:
         
         public virtual void FeatureBackground()
         {
+#line 10
+  #line 11
+    testRunner.Given("the range is 100", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 12
+    testRunner.And("a person named Lucy at location 100", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+    testRunner.And("a person named Sean at location 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
-  #line 15
-    testRunner.Given("a person named Lucy", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 16
-    testRunner.And("a person named Sean", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("a person named Larry at location 150", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -89,13 +84,13 @@ Todo:
         public virtual void ListenerHearsAMessage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Listener hears a message", ((string[])(null)));
-#line 18
+#line 16
   this.ScenarioSetup(scenarioInfo);
-#line 14
+#line 10
   this.FeatureBackground();
-#line 19
+#line 17
     testRunner.When("Sean shouts \"Free bagels!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 20
+#line 18
     testRunner.Then("Lucy hears Sean\'s message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -106,27 +101,31 @@ Todo:
         public virtual void ListenerHearsADifferentMessage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Listener hears a different message", ((string[])(null)));
-#line 22
+#line 20
   this.ScenarioSetup(scenarioInfo);
-#line 14
+#line 10
   this.FeatureBackground();
-#line 23
+#line 21
     testRunner.When("Sean shouts \"Free coffee!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 24
+#line 22
     testRunner.Then("Lucy hears Sean\'s message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Listener is within range")]
-        public virtual void ListenerIsWithinRange()
+        [NUnit.Framework.DescriptionAttribute("Listener is not within range")]
+        public virtual void ListenerIsNotWithinRange()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Listener is within range", ((string[])(null)));
-#line 26
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Listener is not within range", ((string[])(null)));
+#line 24
   this.ScenarioSetup(scenarioInfo);
-#line 14
+#line 10
   this.FeatureBackground();
+#line 25
+    testRunner.When("Sean shouts \"Free bagels!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
+    testRunner.Then("Larry hears Sean\'s message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -138,8 +137,12 @@ Todo:
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Listener is out of range", ((string[])(null)));
 #line 28
   this.ScenarioSetup(scenarioInfo);
-#line 14
+#line 10
   this.FeatureBackground();
+#line 29
+    testRunner.When("Sean shouts \"Free coffee!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
+    testRunner.Then("Larry does not hear Sean\'s message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
